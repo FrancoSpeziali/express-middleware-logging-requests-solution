@@ -1,12 +1,11 @@
 import express from "express";
-import dataset from "../satellites-dataset.js";
 import { findLargestAndSmallest, findByName } from "../helper.js";
 
 const router = express.Router();
 
 // 4.1 Find a satellite by name
 router.get("/find/:name/", (request, response) => {
-  const satellite = findByName(dataset, request.params.name);
+  const satellite = findByName(request.dataset, request.params.name);
 
   if (!satellite) {
     return response.send(500);
@@ -19,7 +18,7 @@ router.get("/find/:name/", (request, response) => {
 router.get("/size", (request, response) => {
   const { pick } = request.query;
 
-  const results = findLargestAndSmallest(dataset, "radius");
+  const results = findLargestAndSmallest(request.dataset, "radius");
 
   if (pick === "largest") {
     return response.send(
@@ -40,7 +39,7 @@ router.get("/size", (request, response) => {
 router.get("/density", (request, response) => {
   const { pick } = request.query;
 
-  const results = findLargestAndSmallest(dataset, "density");
+  const results = findLargestAndSmallest(request.dataset, "density");
 
   if (pick === "highest") {
     return response.send(

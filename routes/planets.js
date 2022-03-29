@@ -1,12 +1,11 @@
 import express from "express";
-import dataset from "../planets-dataset.js";
 import { findByName, findLargestAndSmallest } from "../helper.js";
 
 const router = express.Router();
 
 // 5.1 Find a planet by name
 router.get("/find/:name/", (request, response) => {
-  const planet = findByName(dataset, request.params.name);
+  const planet = findByName(request.dataset, request.params.name);
 
   if (!planet) {
     return response.send(500);
@@ -19,7 +18,7 @@ router.get("/find/:name/", (request, response) => {
 router.get("/size", (request, response) => {
   const { pick } = request.query;
 
-  const results = findLargestAndSmallest(dataset, "radius");
+  const results = findLargestAndSmallest(request.dataset, "radius");
 
   if (pick === "largest") {
     return response.send(
@@ -40,7 +39,7 @@ router.get("/size", (request, response) => {
 router.get("/moons", (request, response) => {
   const { pick } = request.query;
 
-  const results = findLargestAndSmallest(dataset, "numberOfMoons");
+  const results = findLargestAndSmallest(request.dataset, "numberOfMoons");
 
   if (pick === "most") {
     return response.send(
@@ -59,7 +58,7 @@ router.get("/moons", (request, response) => {
 router.get("/sun", (request, response) => {
   const { pick } = request.query;
 
-  const results = findLargestAndSmallest(dataset, "distanceFromSun");
+  const results = findLargestAndSmallest(request.dataset, "distanceFromSun");
 
   if (pick === "furthest") {
     return response.send(
@@ -80,7 +79,7 @@ router.get("/sun", (request, response) => {
 router.get("/temperature", (request, response) => {
   const { pick } = request.query;
 
-  const results = findLargestAndSmallest(dataset, "meanTemperature");
+  const results = findLargestAndSmallest(request.dataset, "meanTemperature");
 
   if (pick === "hottest") {
     return response.send(
@@ -101,7 +100,7 @@ router.get("/temperature", (request, response) => {
 router.get("/day", (request, response) => {
   const { pick } = request.query;
 
-  const results = findLargestAndSmallest(dataset, "lengthOfDay");
+  const results = findLargestAndSmallest(request.dataset, "lengthOfDay");
 
   if (pick === "longest") {
     return response.send(

@@ -20,9 +20,13 @@ function findLargestAndSmallest(dataset, key) {
   };
 }
 
+// validation = making sure our data is correct
+// normalization = normalizing our data so that it is what we expect
+// sanitization = making sure our data is clean
+
 function findByName(dataset, name) {
   return dataset.find((obj) => {
-    // Normalization (here we make everything lowercase)
+    // Validation (here we make everything lowercase)
     return obj.name.toLowerCase() === name.toLowerCase();
   });
 }
